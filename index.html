@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مفاجأة صغيرة 🎁</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #ff2d55;
+            --pink: #ff4fd8;
+            --deep: #b1002e;
+            --bg1: #ffe7ef;
+            --bg2: #ffd1df;
+            --card: rgba(255, 255, 255, .72);
+            --text: #2a0b12;
+            --muted: rgba(42, 11, 18, .75);
+            --shadow: 0 12px 30px rgba(177, 0, 46, .15);
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            background: radial-gradient(900px 600px at 20% 10%, #fff, transparent 60%),
+                radial-gradient(700px 500px at 90% 20%, #fff, transparent 55%),
+                linear-gradient(135deg, var(--bg1), var(--bg2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .wrap {
+            width: min(520px, 100%);
+            position: relative;
+        }
+
+        .spark {
+            position: absolute;
+            inset: -30px;
+            pointer-events: none;
+            background:
+                radial-gradient(14px 14px at 10% 20%, rgba(255, 45, 85, .22), transparent 60%),
+                radial-gradient(18px 18px at 90% 15%, rgba(255, 79, 216, .18), transparent 60%),
+                radial-gradient(12px 12px at 25% 90%, rgba(255, 45, 85, .18), transparent 60%),
+                radial-gradient(16px 16px at 80% 85%, rgba(255, 79, 216, .16), transparent 60%);
+            filter: blur(0.2px);
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, .7);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* ===== Header v2 (Pretty Center) ===== */
+        header.hero2 {
+            padding: 18px 18px 14px;
+            text-align: center;
+            border-bottom: 1px solid rgba(177, 0, 46, .12);
+        }
+
+        .hero2-badge {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 10px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--red), var(--pink));
+            display: grid;
+            place-items: center;
+            box-shadow: 0 10px 22px rgba(255, 45, 85, .25);
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .hero2-title {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            line-height: 1.2;
+        }
+
+        .hero2-name {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: .2px;
+        }
+
+        .hero2-date {
+            font-size: 14px;
+            font-weight: 800;
+            color: rgba(42, 11, 18, .65);
+        }
+
+        .hero2-sub {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        main {
+            padding: 18px;
+        }
+
+        .screen {
+            display: none;
+            animation: pop .35s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes pop {
+            from {
+                transform: translateY(8px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .center {
+            text-align: center;
+            padding: 10px 6px;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 8px 0 14px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        input {
+            width: min(320px, 100%);
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(177, 0, 46, .18);
+            outline: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, .8);
+        }
+
+        input:focus {
+            border-color: rgba(255, 45, 85, .55);
+            box-shadow: 0 0 0 4px rgba(255, 45, 85, .12);
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            border-radius: 16px;
+            padding: 12px 14px;
+            font-size: 15px;
+            font-weight: 700;
+            transition: transform .12s ease, opacity .12s ease;
+            user-select: none;
+        }
+
+        .btn:active {
+            transform: scale(.98);
+        }
+
+        .btn.primary {
+            color: white;
+            background: linear-gradient(135deg, var(--red), var(--pink));
+            box-shadow: 0 10px 22px rgba(255, 45, 85, .22);
+        }
+
+        .btn.ghost {
+            background: rgba(255, 255, 255, .65);
+            border: 1px solid rgba(177, 0, 46, .18);
+            color: var(--deep);
+            font-weight: 700;
+        }
+
+        .error {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(255, 45, 85, .10);
+            border: 1px solid rgba(255, 45, 85, .20);
+            color: var(--deep);
+            font-size: 14px;
+        }
+
+        .error.show {
+            display: inline-block;
+        }
+
+        .msg {
+            font-size: 17px;
+            line-height: 1.8;
+            margin: 0 0 14px;
+        }
+
+        .cards {
+            display: grid;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .mini {
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .72);
+            border: 1px solid rgba(177, 0, 46, .12);
+            padding: 14px;
+            box-shadow: 0 10px 22px rgba(177, 0, 46, .10);
+            transform: translateY(8px);
+            opacity: 0;
+            transition: transform .35s ease, opacity .35s ease;
+        }
+
+        .mini.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mini .t {
+            font-weight: 800;
+            color: var(--deep);
+            margin: 0 0 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.75;
+            color: rgba(42, 11, 18, .92);
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .tiny {
+            font-size: 12px;
+            color: rgba(42, 11, 18, .55);
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .heart {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--red), var(--pink));
+            transform: rotate(45deg);
+            border-radius: 3px;
+            position: relative;
+            top: 1px;
+            margin: 0 4px;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: inherit;
+        }
+
+        .heart:before {
+            left: -6px;
+            top: 0;
+        }
+
+        .heart:after {
+            top: -6px;
+            left: 0;
+        }
+
+        .heart-fall {
+            position: fixed;
+            top: -20px;
+            font-size: 18px;
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+
+        .t {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            color: var(--deep);
+        }
+
+        .card-sticker {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            border-radius: 8px;
+            filter: drop-shadow(0 6px 10px rgba(177, 0, 46, .25));
+        }
+
+        /* موبايل */
+        @media (max-width:420px) {
+            .card-sticker {
+                width: 22px;
+                height: 22px;
+            }
+
+            .hero2-name {
+                font-size: 22px;
+            }
+
+            .hero2-date {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="spark"></div>
+
+        <div class="card">
+
+            <!-- ✅ Header Updated (Centered + Name & Date same line) -->
+            <header class="hero2">
+                <div class="hero2-badge">🎁</div>
+
+                <div class="hero2-title">
+                    <span class="hero2-name" id="pageTitle">غزول 💗</span>
+                    <span class="hero2-date" id="pageDate">29/04 🎂</span>
+                </div>
+
+                <div class="hero2-sub" id="pageSub">في شي لطيف… بس بدو كلمة سر 😌</div>
+            </header>
+
+            <main>
+                <!-- Screen 1: Password -->
+                <section class="screen active" id="screenPass">
+                    <div class="center">
+                        <p class="msg" id="passMsg">
+                            وصولِك لهون يعني شغلتين: <b>ذكية</b> 😄 وبتحبي <b>الفضول</b>.
+                            طيب… دخّلي كلمة السر وخليكي جاهزة 👇
+                        </p>
+
+                        <div class="row">
+                            <input id="passInput" type="text" inputmode="numeric" pattern="[0-9/\\-]*"
+                                placeholder="اكتبي كلمة السر هون..." autocomplete="one-time-code" autocapitalize="off"
+                                autocorrect="off" spellcheck="false" />
+
+                            <button class="btn primary" id="btnEnter">افتحي 😌</button>
+                        </div>
+
+                        <div class="error" id="errBox">مو هي… جرّبي مرة تانية 😄</div>
+                        <div class="tiny" id="hintText">تلميح: كلمة قصيرة… بتضحك 🙈</div>
+                    </div>
+                </section>
+
+                <!-- Screen 2: Welcome -->
+                <section class="screen" id="screenMain">
+                    <p class="msg" id="welcomeMsg"></p>
+
+                    <div class="cards" id="cards">
+                        <div class="mini" id="c1">
+                            <div class="t">
+                                <img src="./assets/st1.png" class="card-sticker" alt="">
+                                كرت 1
+                            </div>
+                            <p id="t1"></p>
+                        </div>
+
+                        <div class="mini" id="c2">
+                            <div class="t">
+                                <img src="./assets/st2.png" class="card-sticker" alt="">
+                                كرت 2
+                            </div>
+                            <p id="t2"></p>
+                        </div>
+
+                        <div class="mini" id="c3">
+                            <div class="t">
+                                <img src="./assets/st3.png" class="card-sticker" alt="">
+                                كرت 3
+                            </div>
+                            <p id="t3"></p>
+                        </div>
+                    </div>
+
+                    <div class="footer-actions">
+                        <button class="btn primary" id="btnNext">طلّعي الكروت وحدة وحدة ✨</button>
+                        <button class="btn ghost" id="btnFinal" disabled>آخر مفاجأة 🎁</button>
+                        <button class="btn ghost" id="btnReset">إعادة 🔁</button>
+                    </div>
+
+                    <p class="tiny">
+                        معمول مخصوص… وفيه <span class="heart"></span> بس “بدون إحراج” 😄
+                    </p>
+                </section>
+
+                <!-- Screen 3: Final -->
+                <section class="screen" id="screenFinal">
+                    <div class="center">
+                        <p class="msg" id="finalMsg"></p>
+                        <div class="footer-actions">
+                            <button class="btn primary" id="btnBack">رجّعيني عالكروت 😄</button>
+                            <button class="btn ghost" id="btnReset2">إعادة 🔁</button>
+                        </div>
+                        <p class="tiny">إذا ضحكتي… خلاص نجحت المهمة ✅</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // ===============================
+        // (1) عدّل هون بسرعة:
+        // ===============================
+        const SETTINGS = {
+            girlName: "غزول",
+            date: "29/04 🎂",
+            passwords: ["294", "29-4", "29/4", "2904"],
+            sub: "في شي بسيط… بس معمول بحب 🤍",
+            hint: "تلميح: تاريخ مميز لو ما عرفتي لح ازعل 😉🎂"
+        };
+
+        const TEXTS = {
+            welcome: (name) => `أهلين ${name ? name + " " : ""}😄
+إذا وصلتي لهون…
+فهذا لأنك مو شخص عادي بحياتي 🤍
+
+حبيت أعمل شي بسيط…
+بس مختلف… إلك أنتِ 👇`,
+
+           card1: "من يوم ما عرفتك… صار في شي حلو بحياتي ❤️",
+    card2: "وجودك جنبي بيخليني أرتاح بطريقة ما حدا بيعرفها 💗",
+    card3: "وبدون ما انتبه… صرت أحبك أكثر كل يوم 🤍",
+
+
+            final: (name) => `اليوم عيد ميلادك 🎂💗
+
+ما بعرف شو أحكي بصراحة…
+بس حبيت أعمل هالشي إلك لأنك غالية علي 🤍
+
+إنتِ مو شخص عادي بحياتي،
+فيكي شي خلّاني أتعلق فيك بدون ما أحس 💕
+
+صرتي من الأشياء اللي بتخلّي يومي أحسن،
+حتى لو ما في شي مميز بصير 🌿
+
+يمكن ما بحكي هالكلام دايم،
+بس إنتِ بتهميني أكتر مما بتتخيلي 💗
+
+ و بدي ضل جنبك على طول…
+مو بس اليوم ❤️
+
+كل سنة وإنتِ بخير يا ${name} 💗
+سنينك كتار و حلوين`
+
+};
+        
+
+        // ===============================
+        // (2) عناصر الصفحة:
+        // ===============================
+        const qs = (id) => document.getElementById(id);
+        const screenPass = qs("screenPass");
+        const screenMain = qs("screenMain");
+        const screenFinal = qs("screenFinal");
+
+        const pageTitle = qs("pageTitle");
+        const pageDate = qs("pageDate");
+        const pageSub = qs("pageSub");
+        const errBox = qs("errBox");
+        const passInput = qs("passInput");
+        const btnEnter = qs("btnEnter");
+
+        const hintText = qs("hintText");
+
+        const welcomeMsg = qs("welcomeMsg");
+        const t1 = qs("t1"), t2 = qs("t2"), t3 = qs("t3");
+        const c1 = qs("c1"), c2 = qs("c2"), c3 = qs("c3");
+
+        const btnNext = qs("btnNext");
+        const btnFinal = qs("btnFinal");
+        const btnReset = qs("btnReset");
+        const btnReset2 = qs("btnReset2");
+        const btnBack = qs("btnBack");
+        const finalMsg = qs("finalMsg");
+
+        // ===============================
+        // (3) تهيئة:
+        // ===============================
+        pageTitle.textContent = `${SETTINGS.girlName} 💗`;
+        pageDate.textContent = SETTINGS.date;
+        pageSub.textContent = SETTINGS.sub;
+        hintText.textContent = SETTINGS.hint;
+
+        welcomeMsg.textContent = TEXTS.welcome(SETTINGS.girlName);
+        t1.textContent = TEXTS.card1;
+        t2.textContent = TEXTS.card2;
+        t3.textContent = TEXTS.card3;
+        finalMsg.textContent = TEXTS.final(SETTINGS.girlName);
+
+        let revealStep = 0;
+
+        function showScreen(which) {
+            [screenPass, screenMain, screenFinal].forEach(s => s.classList.remove("active"));
+            which.classList.add("active");
+        }
+
+        function resetAll() {
+            stopHearts();
+            revealStep = 0;
+            [c1, c2, c3].forEach(c => c.classList.remove("show"));
+            btnFinal.disabled = true;
+            btnNext.disabled = false;
+            btnNext.textContent = "طلّعي الكروت وحدة وحدة ✨";
+            errBox.classList.remove("show");
+            passInput.value = "";
+            showScreen(screenPass);
+            passInput.focus();
+        }
+
+        function checkPass() {
+            const v = (passInput.value || "").trim().toLowerCase();
+            const ok = (SETTINGS.passwords || []).some(p => v === p.toLowerCase());
+
+            if (!ok) {
+                errBox.classList.add("show");
+                passInput.focus();
+                passInput.select();
+                return;
+            }
+            errBox.classList.remove("show");
+            showScreen(screenMain);
+        }
+
+        function revealNext() {
+            revealStep++;
+            if (revealStep === 1) c1.classList.add("show");
+            if (revealStep === 2) c2.classList.add("show");
+            if (revealStep === 3) {
+                c3.classList.add("show");
+                btnFinal.disabled = false;
+                btnNext.textContent = "خلصنا 😄";
+                btnNext.disabled = true;
+            }
+        }
+
+        // ===============================
+        // (4) أحداث:
+        // ===============================
+        btnEnter.addEventListener("click", checkPass);
+        passInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") checkPass();
+        });
+
+        btnNext.addEventListener("click", revealNext);
+
+        btnFinal.addEventListener("click", () => {
+            showScreen(screenFinal);
+            startHearts();
+        });
+
+        btnBack.addEventListener("click", () => {
+            stopHearts();
+            showScreen(screenMain);
+        });
+
+
+        btnReset.addEventListener("click", resetAll);
+        btnReset2.addEventListener("click", resetAll);
+
+        // Auto focus
+        passInput.focus();
+
+        let heartInterval = null;
+
+        function startHearts() {
+            stopHearts(); // تأكد ما في قلوب شغالة من قبل
+
+            heartInterval = setInterval(() => {
+                const heart = document.createElement("div");
+                heart.className = "heart-fall";
+                heart.textContent = "💗";
+
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+                heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+                const size = 14 + Math.random() * 18;
+                heart.style.fontSize = size + "px";
+
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 8000);
+            }, 350);
+        }
+
+        function stopHearts() {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+                heartInterval = null;
+            }
+            // احذف أي قلوب باقية بالشاشة
+            document.querySelectorAll(".heart-fall").forEach(el => el.remove());
+        }
+
+    </script>
+</body>
+
+</html>
